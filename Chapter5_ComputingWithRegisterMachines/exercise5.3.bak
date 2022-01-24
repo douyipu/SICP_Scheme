@@ -1,0 +1,11 @@
+#lang sicp
+
+(controller
+ (assign guess (const 1.0))
+ test-guess
+   (test (op good-enough?) (reg guess))
+   (branch (label sqrt-done))
+   (assign (op improve) (reg g))
+   (goto (label test-guess))
+ sqrt-done)
+
