@@ -1,0 +1,32 @@
+#lang sicp
+(define (product-recur term a next b)
+  (if (> a b)
+      1
+      (* (term a)
+         (product-recur term (next a) next b))))
+
+(define (product-iter term a next b)
+  (define (iter a result)
+    (if (> a b)
+        result
+        (iter (next a) (* (term a) result))))
+  (iter a 1))
+
+(define (factorial n)
+  (define (identity x) x)
+  (define (inc x) (+ x 1))
+  (product-recur identity 1 inc n))
+(factorial 6)
+
+(define (pi-product n)
+  (define (square x) (* x x))
+  (define (plus-2 x) (+ x 2.0))
+  (if (odd? n)
+      (/ (* 8 (product-iter square 4 plus-2 (+ n 1)))
+         (* (+ n 2) (product-iter square 3 plus-2 n)))
+      (/ (* (pi-product (- n 1)) (+ n 2))
+         (+ n 1))))
+(pi-product 160)
+
+
+

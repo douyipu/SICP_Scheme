@@ -1,0 +1,11 @@
+#lang sicp
+(define (fibDivision n)
+  (define fai (/ (+ 1 (sqrt 5)) 2))
+  (define (fib n) ;; iteration
+    (define (iter a b count)
+      (if (= count 0)
+        b
+        (iter (+ a b) a (- count 1))))
+    (iter 1 0 n))
+  (abs (- fai (/ (fib (+ n 1)) (fib n)))))
+(fibDivision 37) ;; 8.881784197001252E-16

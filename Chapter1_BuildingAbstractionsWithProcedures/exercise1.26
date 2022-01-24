@@ -1,0 +1,25 @@
+#lang sicp
+(define (square x) (* x x))
+(define (expmod_original base exp m)
+  (cond ((= exp 0) 1)
+        ((even? exp)
+         (remainder (square (expmod base (/ exp 2) m))
+                    m))
+        (else
+         (remainder (* base (expmod base (- exp 1) m))
+                    m))))
+(define (expmod base exp m)
+  (cond ((= exp 0) 1)
+        ((even? exp)
+         (remainder (* (expmod base (/ exp 2) m)
+                       (expmod base (/ exp 2) m))
+                    m))
+        (else
+         (remainder (* base
+                       (expmod base (- exp 1) m))
+                    m))))
+;; “By writing the procedure like that,
+;;  you have transformed the Θ(logn) process into a Θ(n) process.”
+;;  Explain.
+;;  使用square函数，则在exp为偶数时，(expmod base (/ exp 2))这条语句只用计算一次
+;;  不使用square函数时，都需要计算两次。

@@ -1,0 +1,7 @@
+#lang sicp
+(define (add1 a b)
+  (if (= a 0) b (inc (add1 (dec a) b))))
+(define (add2 a b)
+  (if (= a 0) b (add2 (dec a) (inc b))))
+(add1 4 5) ;recursive
+(add2 4 5) ;iterative

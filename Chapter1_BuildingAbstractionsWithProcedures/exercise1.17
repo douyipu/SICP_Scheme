@@ -1,0 +1,11 @@
+#lang sicp
+(define (multi a b)
+  (define (addition x y) (+ x y))
+  (define (double x) (* 2 x))
+  (define (halve x) (/ x 2))
+  (define (iter a b product)
+    (cond ((= b 1) product)
+          ((odd? b) (iter a (addition (- 1) b) (addition b product)))
+          (else (iter a (halve b) (double product)))))
+  (iter a b a))
+(multi 9 8)

@@ -1,0 +1,9 @@
+#lang sicp
+(define (PascalTriangle row col)
+  (cond ((< row col) (error "invalid column range,column is larger than row!"))
+        ((or (= col 1) (= row col)) 1)
+        (else (+ (PascalTriangle (- row 1) (- col 1))
+                 (PascalTriangle (- row 1) col)))))
+(PascalTriangle 6 3)
+(PascalTriangle 2 4)
+      

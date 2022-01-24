@@ -1,0 +1,27 @@
+#lang sicp
+(define (iterative-improve good-enough? improve)
+  (lambda (guess)
+    (define (try guess)
+      (let ((next (improve guess)))
+        (if (good-enough? guess next)
+            next
+            (try next))))
+    (try guess)))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (fixed-point f guess)
+  (define (good-enough? v1 v2)
+    (< (abs (- v1 v2)) 0.00001))
+  ((iterative-improve good-enough? (lambda (x) (f x))) guess))
+(fixed-point cos 1.0)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (sqrt x)
+  (define (average x y)
+    (/ (+ x y) 2))
+  (define (good-enough? v1 v2)
+    (< (abs (- v1 v2)) 0.00001))
+  ((iterative-improve good-enough?
+                      (lambda (guess) (average guess (/ x guess))))
+                      1.0))
+(sqrt 9)
+
+                     

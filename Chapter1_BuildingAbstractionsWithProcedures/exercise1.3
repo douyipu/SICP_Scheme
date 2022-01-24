@@ -1,0 +1,11 @@
+#lang sicp
+(define (square-of-two-larger-numbers x y z)
+  (define (sum-of-square x y)
+    (+ (* x x) (* y y)))
+  (cond ((and (<= x y) (<= x z)) (sum-of-square y z))
+        ((and (<= y x) (<= y z)) (sum-of-square x z))
+        (else (sum-of-square x y))))
+
+(square-of-two-larger-numbers 2 2 1)
+;;outcomes:
+;8

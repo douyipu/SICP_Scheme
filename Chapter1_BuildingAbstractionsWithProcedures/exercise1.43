@@ -1,0 +1,10 @@
+#lang sicp
+(define (square x) (* x x))
+(define (repeated f n)
+  (define (iter f k g)
+    (if (= k n)
+        g
+        (iter f (+ k 1)
+              (lambda (x) (f (g x))))))
+  (iter f 1 f))
+((repeated square 2) 5)

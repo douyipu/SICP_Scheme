@@ -1,0 +1,26 @@
+#lang sicp
+(define (fib n)
+  (fib-iter 1 0 0 1 n))
+(define (fib-iter a b p q count)
+  (cond ((= count 0) b)
+        ((even? count)
+         (fib-iter a
+                   b
+                   (+ (* p p) (* q q))
+                   (+ (* q q) (* 2 p q))
+                   (/ count 2)))
+        (else (fib-iter (+ (* b q) (* a q) (* a p))
+                        (+ (* b p) (* a q))
+                        p
+                        q
+                        (- count 1)))))
+(define (fib-test n)
+  (define (iter count n)
+    (display (fib count))
+    (newline)
+    (+ count 1)
+    (if (= count (- n 1))
+        (fib n)
+        (iter (+ count 1) n)))
+  (iter 0 n))
+(fib-test 9)

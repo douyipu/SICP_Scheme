@@ -1,0 +1,31 @@
+#lang sicp
+(define (sqrt-iter guess x)
+  (if (good-enough? guess x)
+      guess
+      (sqrt-iter (improve guess x) x)))
+(define (improve guess x)
+  (average guess (/ x guess)))
+(define (average x y)
+  (/ (+ x y) 2))
+(define (good-enough? guess x)
+  (< (abs (- (square guess) x)) 0.001))
+(define (square x) (* x x))
+(define (sqrt x)
+  (sqrt-iter 1.0 x))
+;(sqrt 0.000000001) ;0.03125001065624928
+;(sqrt 100000000000000000000000000000)
+;对于特别大的数,因为 mit-scheme 实现的小数精度不足以表示两个大数之间的差,
+;所以 sqrt 会陷入死循环而无法得出正确结果。
+(define (improved-good-enough? guess x)
+  (< (/ (abs (- (improve guess x) guess))
+        guess)
+     0.0001))
+(define (improved-sqrt x)
+  (improved-sqrt-iter 1.0 x))
+(define (improved-sqrt-iter guess x)
+  (if (improved-good-enough? guess x)
+      guess
+      (improved-sqrt-iter (improve guess x) x)))
+(improved-sqrt 9) ;3.00009155413138
+(improved-sqrt 0.0000000000000001) ;1.0000434348109706e-8
+(improved-sqrt 100000000000000000000000000) ;10000015448235.172

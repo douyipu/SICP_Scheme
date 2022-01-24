@@ -1,0 +1,23 @@
+#lang sicp
+;;  There are 255 Carmichael numbers below 100,000,000. 
+;;  The smallest few are 561, 1105, 1729, 2465, 2821, and 6601.
+(define (square x) (* x x))
+(define (expmod base exp m)
+  (cond ((= exp 0) 1)
+        ((even? exp)
+         (remainder (square (expmod base (/ exp 2) m))
+                    m))
+        (else
+         (remainder (* base (expmod base (- exp 1) m))
+                    m))))
+(define (Miller-Rabin-test n)
+  (define (try-it a)
+    (= (expmod a 2 n) 1))
+  (try-it (+ 2 (random (- n 3))))) ;;random(x): 0->(x-1)
+(define (fast-prime? n times)
+  (cond ((= times 0) true)
+        ((Miller-Rabin-test n) false)
+        (else (fast-prime? n (- times 1)))))
+(fast-prime? 8 100)
+(fast-prime? 561 100)
+(fast-prime? 199 100)

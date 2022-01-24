@@ -1,0 +1,22 @@
+#lang sicp
+(define (integral f a b n)
+  (define h (/ (- b a) n))
+  (define (iter k result)
+    (cond ((= k n) result)
+          ((odd? k) (iter (+ k 1)
+                          (+ result (* 4 (f (+ a (* k h)))))))
+          (else (iter (+ k 1) (+ result (* 2 (f (+ a (* k h)))))))))
+  (* (/ h 3.0)
+     (+ (f a)
+        (iter 1 0)
+        (f (+ a (* n h))))))
+;;odd
+(define (sum term a next b)
+  (if (> a b)
+      0
+      (+ (term a)
+         (sum term (next a) next b))))
+;; test
+(define (cube x) (* x x x))
+(integral cube 0 1 100)
+(integral cube 0 1 1000)
