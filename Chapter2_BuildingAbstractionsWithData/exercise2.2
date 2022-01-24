@@ -1,0 +1,45 @@
+#lang sicp
+(define (print-point p)
+  (newline)
+  (display "(")
+  (display (x-point p))
+  (display ",")
+  (display (y-point p))
+  (display ")"))
+(define (make-segment xp yp)
+  (cons xp yp))
+(define (start-segment line)
+  (car line))
+(define (end-segment line)
+  (cdr line))
+(define (make-point x y)
+  (cons x y))
+(define (x-point p)
+  (car p))
+(define (y-point p)
+  (cdr p))
+(define (midpoint line)
+  (define (x-average line)
+    (/ (+ (car (car line)) (car (cdr line))) 2))
+  (define (y-average line)
+    (/ (+ (cdr (car line)) (cdr (cdr line))) 2))
+  (make-point (x-average line) (y-average line)))
+
+(print-point (make-point 1 2))
+(define start (make-point 1 3))
+(define end (make-point 4 3))
+(define seg (make-segment start end))
+(define mid (midpoint seg))
+(print-point mid)
+
+
+
+
+
+
+
+
+
+
+
+

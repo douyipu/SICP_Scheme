@@ -1,0 +1,86 @@
+#lang sicp
+(define (make-mobile left right)
+  (list left right))
+(define (make-branch length structure)
+  (list length structure))
+(define (left-branch mobile)
+  (car mobile))
+(define (right-branch mobile)
+  (cadr mobile))
+(define (branch-length branch)
+  (car branch))
+(define (branch-structure branch)
+  (cadr branch))
+
+(define x (make-mobile (make-branch 1 1) (make-branch 1 1)))
+(define y (make-mobile (make-branch 2 2) (make-branch 2 2)))
+(define z (make-mobile (make-branch 3 x) (make-branch 3 y)))
+x
+y
+z
+
+(define (total-weight mobile)
+  (if (not (pair? mobile))
+      mobile
+      (+ (total-weight (branch-structure (left-branch mobile)))
+         (total-weight (branch-structure (right-branch mobile))))))
+(total-weight z)
+
+(define (balanced? mobile)
+  (cond ((not (pair? mobile)) #t)
+        ((= (* (total-weight (branch-structure (left-branch mobile)))
+               (branch-length (left-branch mobile)))
+            (* (total-weight (branch-structure (right-branch mobile)))
+               (branch-length (right-branch mobile)))) 
+         (and (balanced? (branch-structure (left-branch mobile)))
+              (balanced? (branch-structure (right-branch mobile)))))
+        (else #f)))
+(balanced? z)
+(balanced? x)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (make-mobile0 left right) (cons left right))
+(define (make-branch0 length structure)
+  (cons length structure))
+(define x0 (make-branch0 1 2))
+(define y0 (make-mobile0 x0 (make-branch0 1 (make-mobile0 x0 x0))))
+x0
+y0
+
+(define (left-branch0 mobile)
+  (car mobile))
+(define (right-branch0 mobile)
+  (cdr mobile))
+(define (branch-length0 branch)
+  (car branch))
+(define (branch-structure0 branch)
+  (cdr branch))
+
+(define (total-weight0 mobile)
+  (if (not (pair? mobile))
+      mobile
+      (+ (total-weight0 (branch-structure0 (left-branch0 mobile)))
+         (total-weight0 (branch-structure0 (right-branch0 mobile))))))
+(total-weight0 y0)
+
+
+
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

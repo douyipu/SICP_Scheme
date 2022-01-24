@@ -1,0 +1,24 @@
+#lang sicp
+(define (exp x n)
+  (define (square x) (* x x))
+  (define (iter x n result)
+    (cond ((= n 0) result)
+          ((even? n)
+           (* result (square (exp x (/ n 2)))))
+          (else (iter x (- n 1) (* x result)))))
+  (iter x n 1))
+
+(define (cons a b)
+  (* (exp 2 a) (exp 3 b)))
+
+(define (select z a-base b-base)
+  (if (= (remainder z b-base) 0)
+      (select (/ z b-base) a-base b-base)
+      (log z a-base)))
+(define (car z)
+  (select z 2 3))
+(define (cdr z)
+  (select z 3 2))
+ 
+(car (cons 2 3))
+(cdr (cons 2 3))
