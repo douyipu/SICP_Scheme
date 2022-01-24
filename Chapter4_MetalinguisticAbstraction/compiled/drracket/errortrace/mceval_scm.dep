@@ -1,0 +1,1 @@
+("8.1" ta6le ("ceea2fee4df4a5efa2ad77f09cbcd5c4e8115e91" . "f00cf2670001b5ae0917cd7d67c4ce03c406b646") #"/home/douyipu/Nutstore Files/Scheme_SCIP/Chapter4_MetalinguisticAbstraction/ch4support.scm" (collects #"errortrace" #"errortrace-key.rkt") (collects #"racket" #"main.rkt") (collects #"sicp" #"lang" #"reader.rkt") (collects #"sicp" #"main.rkt"))
