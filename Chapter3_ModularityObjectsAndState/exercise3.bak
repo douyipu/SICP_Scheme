@@ -1,7 +1,0 @@
-#lang sicp
-(define (make-queue)
-  (let ((front-ptr '())
-        (rear-ptr '()))
-    (define (set-front-ptr! item) (set! front-ptr item))
-    (define (dispatch m) )
-    dispatch))
