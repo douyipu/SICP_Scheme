@@ -1,0 +1,125 @@
+#lang sicp
+(define (make-deque-node item pre next) (cons item (cons pre next)))
+(define (item node) (car node))
+(define (node-ptrs node) (cdr node))
+(define (node-pre node) (cadr node))
+(define (node-next node) (cddr node))
+
+(define (make-deque) (cons '() '()))
+(define (front-ptr deque) (car deque))
+(define (rear-ptr deque) (cdr deque))
+
+(define (empty-deque? deque)
+  (null? (front-ptr deque)))
+(define (front-deque deque)
+  (if (empty-deque? deque)
+      (error "FRONT-DEQUE called with an emtpy deque" deque)
+      (item (front-ptr deque))))
+(define (rear-deque deque)
+  (if (empty-deque? deque)
+      (error "FRONT-DEQUE called with an emtpy deque" deque)
+      (item (rear-ptr deque))))
+
+(define (set-front-ptr! deque item)
+  (set-car! deque item))
+(define (set-rear-ptr! deque item)
+  (set-cdr! deque item))
+(define (set-pre-ptr! pointing-node pointed-node)
+  (set-car! (node-ptrs pointing-node) pointed-node))
+(define (set-next-ptr! pointing-node pointed-node)
+  (set-cdr! (node-ptrs pointing-node) pointed-node))
+
+(define (print-deque deque)
+  (define (print-node node)
+    (cond ((not (null? node))
+           (display (item node))
+           (cond ((not (null? (node-next node)))
+                  (display " ")))
+           (print-node (node-next node)))))
+  (display "(")
+  (print-node (front-ptr deque))
+  (display ")")
+  (newline))
+
+(define (front-insert-deque! deque item)
+  (let ((new-item (make-deque-node item '() '())))
+    (cond ((empty-deque? deque)
+           (set-front-ptr! deque new-item)
+           (set-rear-ptr! deque new-item)
+           (print-deque deque))
+          (else
+           (set-next-ptr! new-item (front-ptr deque))
+           (set-pre-ptr! (front-ptr deque) new-item)
+           (set-front-ptr! deque new-item)
+           (print-deque deque)))))
+(define (rear-insert-deque! deque item)
+  (let ((new-item (make-deque-node item '() '())))
+    (cond ((empty-deque? deque)
+           (set-front-ptr! deque new-item)
+           (set-rear-ptr! deque new-item)
+           (print-deque deque))
+          (else
+           (set-pre-ptr! new-item (rear-ptr deque))
+           (set-next-ptr! (rear-ptr deque) new-item)
+           (set-rear-ptr! deque new-item)
+           (print-deque deque)))))
+(define (front-delete-deque! deque)
+  (cond ((empty-deque? deque)
+         (error "FRONT-DELETE-DEQUE! called with an empty deque" deque))
+        ((equal? (front-ptr deque) (rear-ptr deque))
+         (set-rear-ptr! deque '())
+         (set-front-ptr! deque '()))
+        (else
+         (set-front-ptr! deque (node-next (front-ptr deque)))
+         (set-pre-ptr! (front-ptr deque) '())
+         (print-deque deque))))
+(define (rear-delete-deque! deque)
+  (cond ((empty-deque? deque)
+         (error "RESR-DELETE-DEQUE! called with an empty deque" deque))
+        ((equal? (front-ptr deque) (rear-ptr deque))
+         (set-rear-ptr! deque '())
+         (set-front-ptr! deque '()))
+        (else
+         (set-rear-ptr! deque (node-pre (rear-ptr deque)))
+         (set-next-ptr! (rear-ptr deque) '())
+         (print-deque deque))))
+
+(define my-deque (make-deque))
+(front-insert-deque! my-deque 1)
+(front-insert-deque! my-deque 2)
+(rear-insert-deque! my-deque 3)
+(rear-insert-deque! my-deque 4)
+(front-delete-deque! my-deque)
+(rear-delete-deque! my-deque)
+(rear-delete-deque! my-deque)
+(front-delete-deque! my-deque)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

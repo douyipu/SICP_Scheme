@@ -1,0 +1,22 @@
+#lang sicp
+(define (rand symbol)
+  (define random-init 1)
+  (define (rand-update x)
+    (modulo (* 16807 x) 2147483647))
+  random-init
+  (define rand-generate (let ((x random-init))
+                          (lambda ()
+                            (set! x (rand-update x))
+                            x)))
+  (if (not (symbol? symbol))
+      (error "please input symbol 'generate or 'reset")
+      (cond ((eq? symbol 'generate)
+             (rand-generate))
+            ((eq? symbol 'reset)
+             (lambda (x)
+               (set! random-init x)))
+            (error "please input symbol 'generate or 'reset"))))
+(rand 'generate)
+((rand 'reset) 1)
+(rand 'generate)
+          

@@ -1,0 +1,1 @@
+("8.1" ta6le ("157c847b7c705307943fe618c8b4788c7275bb78" . "a1d8fe104284477220b93c3f224d8eb5d51f0ca0") (collects #"errortrace" #"errortrace-key.rkt") (collects #"sicp" #"lang" #"reader.rkt") (collects #"sicp" #"main.rkt"))

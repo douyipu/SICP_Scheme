@@ -1,0 +1,13 @@
+#lang sicp
+(define (count-pairs x)
+  (if (not (pair? x))
+      0
+      (+ (count-pairs (car x))
+         (count-pairs (cdr x))
+         1)))
+(count-pairs (list 'a 'b 'c))
+(count-pairs (list 'a 'b 'c 'd))
+(count-pairs (list 'a 'b 'c 'd 'e 'f 'g))
+(define x (list 'a 'b))
+(set-cdr! (cdr x) x)
+;(count-pairs x) ; Interactions disabled; out of memory

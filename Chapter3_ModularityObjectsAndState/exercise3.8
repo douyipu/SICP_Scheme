@@ -1,0 +1,8 @@
+#lang sicp
+(define init 0)
+(define (f x)
+  (let ((y init))
+    (set! init x)
+    y))
+(+ (f 0) (f 1))
+(+ (f 1) (f 0))
